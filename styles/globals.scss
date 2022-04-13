@@ -1,0 +1,98 @@
+*,
+*::after,
+*::before {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  // font-size: 10px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+  background-color: #eff1f4;
+  padding: 10px;
+  position: relative;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  width: 100%;
+}
+
+//header
+
+.header {
+  &-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-left {
+    display: flex;
+  }
+}
+
+//product page
+
+.grid {
+  display: grid;
+  width: calc(100% - 320px);
+  margin-left: auto;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  &-item {
+    height: 300px;
+    background-color: white;
+    padding: 10px;
+    &-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &-prices {
+      display: flex;
+      margin-top: 6px;
+      div {
+        margin-right: 10px;
+      }
+    }
+    &-price {
+      font-weight: bold;
+    }
+    &-mrp {
+      color: #53575d;
+      text-decoration: line-through;
+    }
+    .img-con {
+      height: 80%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+//sidebar
+
+.sidebar {
+  width: 300px;
+  height: calc(100vh - 20px);
+  overflow-y: auto;
+  background-color: white;
+  margin-right: 10px;
+  padding: 10px;
+  position: sticky;
+  left: 10px;
+  top: 10px;
+}
