@@ -124,14 +124,6 @@ const Header = (props) => {
                 />
               </div>
             </div>
-            <div className="header-right">
-              <Button variant="contained" size="medium" className={classes.button}>
-                Login
-              </Button>
-              <Button startIcon={<ShoppingCart />} variant="text" size="medium" className={classes.cart}>
-                Cart
-              </Button>
-            </div>
           </Toolbar>
         </div>
       </AppBar>
