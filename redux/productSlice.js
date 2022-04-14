@@ -13,8 +13,14 @@ export const productSlice = createSlice({
     setFiltered: (state, action) => {
       state.filtered = [...action.payload];
     },
-    toggleSidebar: (state) => {
-      state.sidebar = !state.sidebar;
+    toggleSidebar: (state, action) => {
+      if (typeof action.payload !== "undefined") {
+        console.log(action.payload, typeof action.payload);
+        state.sidebar = action.payload;
+      } else {
+        console.log(action.payload, "else");
+        state.sidebar = !state.sidebar;
+      }
     },
   },
 });

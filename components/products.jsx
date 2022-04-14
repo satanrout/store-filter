@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Products = () => {
-  const { filtered } = useSelector((state) => state.action);
+  const { filtered, sidebar } = useSelector((state) => state.action);
 
   const getDiscount = (price) => Math.round(((1000 - price) / 1000) * 100) + "%";
 
@@ -27,6 +27,7 @@ const Products = () => {
           </div>
         );
       })}
+      {sidebar && <div className="overlay"></div>}
     </div>
   );
 };

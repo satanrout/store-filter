@@ -9,9 +9,9 @@ import {
   Slider,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFiltered } from "../redux/productSlice";
+import { setFiltered, toggleSidebar } from "../redux/productSlice";
 import { productData } from "../store";
 
 const useStyles = makeStyles({
@@ -31,18 +31,29 @@ const Sidebar = () => {
   const [catagories, setCatagories] = useState([]);
   const [value, setValue] = useState([0, 1000]);
   const [selected, setSelected] = useState("all");
+  const { width, height } = useWindowSize();
   const { filtered, sidebar } = useSelector((state) => state.action);
 
   useEffect(() => {
     const allCat = filtered.map((data) => data.category);
-
     const cat = [...new Set(allCat)];
     setCatagories(cat);
   }, []);
 
   useEffect(() => {
+    if (width > 700) {
+      dispatch(toggleSidebar(false));
+    }
+  }, [width]);
+
+  useEffect(() => {
     filterByPrice();
   }, [value]);
+
+  useEffect(() => {
+    sidebar ? document.body.classList.add("no_scroll") : document.body.classList.remove("no_scroll");
+    return () => document.body.classList.remove("no_scroll");
+  }, [sidebar]);
 
   const filterByPrice = () => {
     const filtered = productData.filter((data) => data.price >= value[0] && data.price <= value[1]);
@@ -68,6 +79,32 @@ const Sidebar = () => {
       dispatch(setFiltered(filtered));
     }
   };
+
+  function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+      // Add event listener
+      window.addEventListener("resize", handleResize);
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+  }
 
   return (
     <div className={`${sidebar ? "show_sidebar" : ""} sidebar`}>
