@@ -31,7 +31,7 @@ const Sidebar = () => {
   const [catagories, setCatagories] = useState([]);
   const [value, setValue] = useState([0, 1000]);
   const [selected, setSelected] = useState("all");
-  const { filtered } = useSelector((state) => state.action);
+  const { filtered, sidebar } = useSelector((state) => state.action);
 
   useEffect(() => {
     const allCat = filtered.map((data) => data.category);
@@ -70,7 +70,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar">
+    <div className={`${sidebar ? "show_sidebar" : ""} sidebar`}>
       <Box maxWidth={300} height={"100%"}>
         <nav aria-label="main mailbox folders">
           <List>

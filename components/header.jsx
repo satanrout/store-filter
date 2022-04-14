@@ -10,12 +10,15 @@ import { Button, colors } from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFiltered } from "../redux/productSlice";
+import { setFiltered, toggleSidebar } from "../redux/productSlice";
 import { productData } from "../store";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  header: {
+    alignSelf: "center",
   },
   button: {
     marginRight: theme.spacing(1),
@@ -99,13 +102,26 @@ const Header = (props) => {
     }
   }, [searchValue]);
 
+  const handleMenu = () => {
+    dispatch(toggleSidebar());
+  };
+
   return (
     <div className="header">
       <AppBar position="static">
         <div className="container">
           <Toolbar className="header-container">
             <div className="header-left">
-              <Typography variant="h6" color="inherit">
+              <IconButton
+                onClick={handleMenu}
+                edge="start"
+                className={(classes.menuButton, "ham-menu")}
+                color="inherit"
+                aria-label="menu"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography className={classes.header} variant="h6" color="inherit">
                 Satyaranjan
               </Typography>
               <div className={classes.search}>

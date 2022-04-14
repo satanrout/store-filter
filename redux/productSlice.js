@@ -3,6 +3,7 @@ import { productData } from "../store";
 
 const initialState = {
   filtered: [...productData],
+  sidebar: false,
 };
 
 export const productSlice = createSlice({
@@ -12,9 +13,12 @@ export const productSlice = createSlice({
     setFiltered: (state, action) => {
       state.filtered = [...action.payload];
     },
+    toggleSidebar: (state) => {
+      state.sidebar = !state.sidebar;
+    },
   },
 });
 
-export const { setFiltered } = productSlice.actions;
+export const { setFiltered, toggleSidebar } = productSlice.actions;
 
 export default productSlice.reducer;
